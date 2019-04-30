@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+<mapper namespace="teacher" >
+<insert id="insertteacher" parameterType="Bean.Teacher" >
+insert into teacher values(#{id},#{password},#{name})
+</insert>
+<delete id="delteacherbyid" parameterType="String" >
+delete from teacher where id=#{id}
+</delete>
+	
+
+<update id="moteacher"  parameterType="Bean.Teacher" >
+UPDATE teacher SET name=#{name},password=#{password} WHERE id=#{id}
+</update>
+<select id="showallteacher" resultType="Bean.Teacher" >
+select * from teacher;
+</select>
+
+<select id="showteacherbypage" resultType="Bean.Teacher"  parameterType="util.Page"  >
+select  * from teacher order by id desc limit #{start},#{size};
+</select>
+<select id="adselpage" resultType="int" >
+select count(*) from teacher;
+</select>
+
+<select id="selteacherbyid"  parameterType="String"   resultType="Bean.Teacher" >
+select * from teacher where id=#{id};
+</select>
+
+<select id="selteacherbyname"  parameterType="String"   resultType="Bean.Teacher" >
+select * from teacher where name like   CONCAT('%',#{name},'%');
+</select>
+
+
+
+</mapper>

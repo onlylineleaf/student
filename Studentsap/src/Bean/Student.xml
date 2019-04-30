@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+<mapper namespace="student" >
+<insert id="insertstudent" parameterType="Bean.Student" >
+insert into student values(#{id},#{name},#{cla},#{mathgrade},#{chinesegrade},#{englishgrade},#{password})
+</insert>
+<delete id="delstudentbyid" parameterType="String" >
+delete from student where id=#{id}
+</delete>
+	
+
+<update id="mostudent"  parameterType="Bean.Student" >
+UPDATE student SET name=#{name} ,cla=#{cla},mathgrade=#{mathgrade},chinesegrade=#{chinesegrade},englishgrade=#{englishgrade},password=#{password} WHERE id=#{id}
+</update>
+<select id="showallstudent" resultType="Bean.Student" >
+select * from student;
+</select>
+
+<select id="showstudentbypage" resultType="Bean.Student"  parameterType="util.Page"  >
+select  * from student order by id asc limit #{start},#{size};
+</select>
+<select id="showstudentbypageorderbycla" resultType="Bean.Student"  parameterType="util.Page"  >
+select  * from student order by cla asc limit #{start},#{size};
+</select>
+
+<select id="showstudentbypageOrderbygrade" resultType="Bean.Student"  parameterType="util.Page"  >
+select  *   from student order by (mathgrade+chinesegrade+englishgrade) desc limit #{start},#{size};
+</select>
+
+
+<select id="adselpage" resultType="int" >
+select count(*) from student;
+</select>
+
+<select id="selstudentbyid"  parameterType="String"   resultType="Bean.Student" >
+select * from student where id=#{id};
+</select>
+
+<select id="selstudentbyname"  parameterType="String"   resultType="Bean.Student" >
+select * from student where name like   CONCAT('%',#{name},'%');
+</select>
+
+
+
+</mapper>
